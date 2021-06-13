@@ -59,7 +59,10 @@ if __name__ == '__main__':
         # This is just to break the training if it takes over 50 iterations. (For demonstration purposes)
         # You shouldn't need to do this as your networks may require much longer to train.
 
-    print(f'Finished training AND gate, obtained accuracy is {valid_percentage} with {i} epochs\n \n')
+        if i == 50:
+            break
+
+    print(f'Finished training AND gate, obtained accuracy is {valid_percentage} with {i} epochs \n')
 
     if generate_training_set:
 
@@ -93,10 +96,10 @@ if __name__ == '__main__':
                 validate_labels.append(0)
 
     # Create OR GATE Perceptron
-    OR = Perceptron(2, bias=-0.5)
+    OR = Perceptron(2, bias=-1.5)
 
-    # print(f'weights: {OR.weights}')
-    valid_percentage = AND.validate(validate_examples, validate_labels, verbose=True)
+    # print(f' weights: {OR.weights}')
+    valid_percentage = OR.validate(validate_examples, validate_labels, verbose=True)
     # print(f'Percentage accuracy: {valid_percentage * 100} %')
 
     i = 0
@@ -105,8 +108,8 @@ if __name__ == '__main__':
 
         i += 1
 
-        OR.train(training_examples, training_labels, 0.35)  # Train our Perceptron
-        print('------ Iteration ' + str(i) + ' ------')
+        OR.train(training_examples, training_labels, 0.22)  # Train our Perceptron
+        # print('------ Iteration ' + str(i) + ' ------')
         # print(OR.weights)
         valid_percentage = OR.validate(validate_examples, validate_labels, verbose=True)  # Validate it
         # print(f'Percentage accuracy: {valid_percentage * 100} %')
@@ -114,9 +117,69 @@ if __name__ == '__main__':
         # This is just to break the training if it takes over 50 iterations. (For demonstration purposes)
         # You shouldn't need to do this as your networks may require much longer to train.
 
-        if i == 50:
+        if i == 10000:
             break
 
-    print(f'Finished training OR gate, obtained accuracy is {valid_percentage} with {i} epochs \n \n')
+    print(f'Finished training OR gate, obtained accuracy is {valid_percentage} with {i} epochs  \n')
+
+    if generate_training_set:
+
+        training_examples = []
+        training_labels = []
+
+        for i in range(num_train):
+            training_examples.append([random.random()])
+            # We want our perceptron to be noise tolerant, so we label all examples where x1 and x2 > 0.8 as 1.0
+            # training_labels.append(0.0 if training_examples[i][0] < 0.8 and training_examples[i][1] < 0.8 else 1.0)
+            if training_examples[i][0] < 0.75:
+                training_labels.append(1.0)
+            else:
+                training_labels.append(0.0)
+
+    if generate_validation_set:
+
+        validate_examples = []
+        validate_labels = []
+
+        for i in range(num_train):
+            validate_examples.append([random.random()])
+            # validate_labels.append(0.0 if training_examples[i][0] < 0.8 and training_examples[i][1] < 0.8 else 1.0)
+            if validate_examples[i][0] < 0.75:
+                validate_labels.append(1.0)
+            else:
+                validate_labels.append(0.0)
+
+        # Create Perceptron
+    NOT = Perceptron(1, bias=1.0)
+
+    # print(NOT.weights)
+    valid_percentage = NOT.validate(validate_examples, validate_labels, verbose=True)
+    # print(valid_percentage)
+    print("Training NOT Gate")
+    i = 0
+    while valid_percentage < 0.98:  # We want our Perceptron to have an accuracy of at least 80%
+
+        i += 1
+
+        NOT.train(training_examples, training_labels, 0.1)  # Train our Perceptron
+        # print('------ Iteration ' + str(i) + ' ------')
+        # print(NOT.weights)
+        valid_percentage = NOT.validate(validate_examples, validate_labels, verbose=True)  # Validate it
+        # print(valid_percentage)
+
+        # This is just to break the training if it takes over 50 iterations. (For demonstration purposes)
+        # You shouldn't need to do this as your networks may require much longer to train.
+        if i == 10000:
+            break
+
+    print(f'Finished training NOT gate, obtained accuracy is {valid_percentage} with {i} epochs \n')
+
+    print("Constructing network..")
+
+
+
+
+
+
 
 
