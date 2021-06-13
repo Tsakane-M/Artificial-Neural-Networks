@@ -8,12 +8,15 @@ class Perceptron:
 
     def __init__(self, num_inputs: int, bias: float = 0.0, seeded_weights: [float] = None,
                  float_threshold: float = 0.0005):
-        """NOTE: if you want to seed your weights, the size of seeded weights must be greater than or equal to num_inputs"""
+        """NOTE: if you want to seed your weights, the size of
+        seeded weights must be greater than or equal to num_inputs"""
 
         self.num_inputs = num_inputs
 
-        # The line below uses list comprehension to generate the weights list for out perceptron. If seeded_weights is None, the weights will
-        # be randomly initialized to be a value between [0,1) else the weights[i] will be set to whatever the value of seeded_weights[i] is.
+        # The line below uses list comprehension to generate the weights list for out perceptron.
+        # If seeded_weights is None, the weights will
+        # be randomly initialized to be a value between [0,1) else the weights[i]
+        # will be set to whatever the value of seeded_weights[i] is.
         self.weights = [random.random() for i in range(num_inputs)] if seeded_weights is None else [seeded_weights[i]
                                                                                                     for i in
                                                                                                     range(num_inputs)]
@@ -33,8 +36,10 @@ class Perceptron:
         self.weights[index] += learning_rate * (target_output - output) * x
 
     def train(self, examples: [[float]], labels: [float], learning_rate: float):
-        """NOTE: This function will run the each input example[i] through the activate function and compare its output to the label labels[i].
-		if the output does not match, the perceptron learning rule is applied and each weight of the perceptron is modified in accordance with the rule."""
+        """NOTE: This function will run the each input example[i]
+         through the activate function and compare its output to the label labels[i].
+		if the output does not match, the perceptron learning rule is applied and each
+		weight of the perceptron is modified in accordance with the rule."""
 
         for i in range(len(examples)):
 
