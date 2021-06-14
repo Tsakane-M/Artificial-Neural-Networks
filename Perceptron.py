@@ -62,3 +62,9 @@ class Perceptron:
                 continue
 
         return num_correct / len(examples)
+
+    def get_output(self, example: [float]) -> float:
+
+        prediction = self.activate(example)
+
+        return prediction
