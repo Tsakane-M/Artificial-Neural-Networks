@@ -1,0 +1,17 @@
+To run:
+ 1) Go into directory from terminal and run "make clean" to make sure directory is clean of all object files.
+ 2) Run "make run_XOR" command in terminal to compile and run the XOR program.
+
+    Run "make run_Classifer" command in terminal to compile and run the image classification network.
+    NB: The program only accepts images of size 28x28 pixels
+    NB: Copy the MNIST folder into the parent folder of the code before running.
+
+
+
+Perceptron.py: The file that contains the Perceptron class used to build the XOR gate.
+
+XOR.py: This is the main implementation file that contains all the methods used to build and run the functionality of the XOR gate.
+
+Classifier.py: This is the main implementation file image classification using Artificial Neural networks.
+
+
